@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, ScaledSize } from "react-native";
 import { rem, vw } from "../../lib/constants";
 import { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
-import replaced_styles from "../../assets/styles/replaced_styles";
 import { global_styles } from "../../assets/styles/global_styles";
 export const styles = StyleSheet.create({
   _divResult_n_resultOutput: {
@@ -16,8 +15,7 @@ export const styles = StyleSheet.create({
 export default function CalcRes(props: CalcElProps): JSX.Element {
   const [curW, setW] = useState(vw);
   useEffect(() => {
-    const handleResize = ({ window }: { window: ScaledSize }) =>
-      setW(window.width);
+    const handleResize = ({ window }: { window: ScaledSize }) => setW(window.width);
     const sub = Dimensions.addEventListener("change", handleResize);
     //TODO PASSAR A REF DAS OPERAÇÕES
     // props.txt && addOprtTarg(txt, this.$el);
@@ -25,19 +23,15 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
   }, [curW]);
   return (
     <View style={{ width: 0.25 * curW }}>
-      <Text style={global_styles._divResult_nlabel}>
+      <Text style={[global_styles.label, global_styles._divResult_nlabel]}>
         {props.txt
           .split(/(?=[A-Z])/g)
           .map((fragment, i) =>
             i === 0
-              ? fragment.charAt(0).toUpperCase() +
-                fragment.slice(1).toLowerCase()
-              : /^\s*of\s*$|^\s*from\s*$|^\s*for\s*$|^\s*a\s*$|^\s*in\s*$/i.test(
-                  fragment
-                )
+              ? fragment.charAt(0).toUpperCase() + fragment.slice(1).toLowerCase()
+              : /^\s*of\s*$|^\s*from\s*$|^\s*for\s*$|^\s*a\s*$|^\s*in\s*$/i.test(fragment)
               ? fragment.toLowerCase()
-              : fragment.charAt(0).toUpperCase() +
-                fragment.slice(1).toLowerCase()
+              : fragment.charAt(0).toUpperCase() + fragment.slice(1).toLowerCase(),
           )
           .join(" ")
           .replace(/pearsonss/gi, "pearson's")}
@@ -45,6 +39,7 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
       <Text
         style={[
           styles._divResult_n_resultOutput,
+          global_styles.output,
           global_styles._divResult_n_formControl,
         ]}
       ></Text>

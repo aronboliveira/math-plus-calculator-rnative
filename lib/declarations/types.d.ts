@@ -2,6 +2,9 @@ export type voidish = null | undefined;
 export type looseNum = string | number;
 export type voidishStr = string | voidish;
 export type voidishLooseNum = looseNum | voidish;
+export type nView = View | null;
+export type nText = Text | null;
+export type nTO = TouchableOpacity | null;
 export type validImgExntesions =
   | "jpeg"
   | "jpg"
@@ -17,19 +20,8 @@ export type validImgExntesions =
   | "pdf"
   | "invalidExtension";
 export type numSets = "whole" | "natural" | "integer" | "rational" | "real";
-export type socialMedia =
-  | "discord"
-  | "instagram"
-  | "facebook"
-  | "twitter"
-  | "youtube"
-  | "twitch";
-export type mainFooterCases =
-  | "authors"
-  | "contact"
-  | "cookies"
-  | "team"
-  | "terms";
+export type socialMedia = "discord" | "instagram" | "facebook" | "twitter" | "youtube" | "twitch";
+export type mainFooterCases = "authors" | "contact" | "cookies" | "team" | "terms";
 export type pagesCases = "home" | "new-user" | "active-user" | "classes" | "/";
 export type FourNumCases = 0 | 1 | 2 | 3;
 export type urlCases =
@@ -72,9 +64,7 @@ export type algebraFormulaNames =
   | "reasonForGeometricSeries"
   | "nthTermOfGeometricSeries"
   | "sumOfGeometricSeries";
-export type CombinatoricsFormulasNamesReg =
-  | "Permutation"
-  | "MultisetPermutation";
+export type CombinatoricsFormulasNamesReg = "Permutation" | "MultisetPermutation";
 export type combinatoricsFormulaNames = "permutation" | "multisetPermutation";
 export type CombinationsTypesReg =
   | "Permutation Without Repetition"

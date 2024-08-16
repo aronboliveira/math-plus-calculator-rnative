@@ -1,3 +1,4 @@
+import AccordionList from "./AccordionList";
 import StackedAccordionIcon from "./StackedAccordion";
 import { useState } from "react";
 
@@ -6,7 +7,18 @@ export default function AccordionWrapper(): JSX.Element {
   return (
     <>
       <StackedAccordionIcon dp={setAccordion} st={showAccordion} />
-      {/* accordionlist */}
+      <AccordionList
+        n_titles={[
+          "Algebra",
+          "Combinatorics",
+          "Probability",
+          "Statistics",
+          "Trigonometry",
+          "Geometry",
+        ]}
+        dp={setAccordion}
+        st={showAccordion}
+      />
     </>
   );
 }

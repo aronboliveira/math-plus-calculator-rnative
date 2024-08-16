@@ -1,12 +1,7 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { rem, vh, vw } from "../../lib/constants";
 import { global_styles } from "../../assets/styles/global_styles";
+import { AccordionListProps } from "../../lib/declarations/components";
 export const accordion_list_styles = StyleSheet.create({
   _accordionNav: {
     display: "flex",
@@ -46,27 +41,18 @@ export const accordion_list_styles = StyleSheet.create({
     color: "#ffff",
   },
 });
-export default function AccordionList({
-  n_titles,
-}: {
-  n_titles: string[];
-}): JSX.Element {
+export default function AccordionList(props: AccordionListProps): JSX.Element {
   const routeToOprtGrp = (el: TouchableOpacity): void => {};
   return (
     <View style={[accordion_list_styles._accordionNav]}>
       <FlatList
-        style={accordion_list_styles._accordionNav_nany}
-        data={n_titles}
+        style={[global_styles.ul, accordion_list_styles._accordionNav_nany]}
+        data={props.n_titles}
         renderItem={({ item }: { item: string }) => (
           <View style={accordion_list_styles._accordionNav_nany}>
             <TouchableOpacity
-              style={[
-                global_styles.button,
-                accordion_list_styles._accordionNav_nany,
-              ]}
-              onPress={(ev) =>
-                routeToOprtGrp(ev.currentTarget as TouchableOpacity)
-              }
+              style={[global_styles.button, accordion_list_styles._accordionNav_nany]}
+              onPress={ev => routeToOprtGrp(ev.currentTarget as TouchableOpacity)}
             >
               <Text
                 style={[
@@ -81,16 +67,11 @@ export default function AccordionList({
         )}
         keyExtractor={(_, i) => `__item_${i}`}
       >
-        {n_titles.map((title) => (
+        {props.n_titles.map(title => (
           <View style={accordion_list_styles._accordionNav_nany}>
             <TouchableOpacity
-              style={[
-                global_styles.button,
-                accordion_list_styles._accordionNav_nany,
-              ]}
-              onPress={(ev) =>
-                routeToOprtGrp(ev.currentTarget as TouchableOpacity)
-              }
+              style={[global_styles.button, accordion_list_styles._accordionNav_nany]}
+              onPress={ev => routeToOprtGrp(ev.currentTarget as TouchableOpacity)}
             >
               <Text
                 style={[
