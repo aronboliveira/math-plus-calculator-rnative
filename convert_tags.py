@@ -66,7 +66,7 @@ def check_tags(path) -> None:
 											writingDirection: 'rtl',
 									}},
 									big: {{
-											fontSize: 'larger',
+											fontSize: 20,
 									}},
 									br: {{
 											lineHeight: 1.5,
@@ -111,8 +111,8 @@ def check_tags(path) -> None:
 											fontWeight: 'bold',
 									}},
 									hr: {{
-											marginTop: 0.5em,
-											marginBottom: 0.5em,
+											marginTop: 8,
+											marginBottom: 8,
 									}},
 									ins: {{
 											textDecorationLine: 'underline'
@@ -130,7 +130,6 @@ def check_tags(path) -> None:
 									}},
 									pre: {{
 											fontFamily: 'monospace',
-											whiteSpace: 'pre',
 									}},
 									s: {{
 											textDecorationLine: 'line-through',
@@ -149,11 +148,11 @@ def check_tags(path) -> None:
 									}},
 									sub: {{
 											fontSize: 12,
-											verticalAlign: 'sub',
+											verticalAlign: 'bottom',
 									}},
 									super: {{
 											fontSize: 12,
-											verticalAlign: 'super',
+											verticalAlign: 'top',
 									}},
 									u: {{
 											textDecorationLine: 'underline',
@@ -201,7 +200,8 @@ def check_tags(path) -> None:
             tag_selectors = f'{{replaced_styles.{tag_name}}}'
             for part in tag_parts[1:]:
                 if part.strip().startswith('class'):
-                    tag_classes = [clas for clas in part[(part.index('=') + 1):].replace("'", '').replace('"', '').split(' ')]
+                    tag_classes = [''.join(word.capialize() if i > 0 else word for i, word in enumerate(clas.split('-')))
+                                   for clas in part[(part.index('=') + 1):].replace("'", '').replace('"', '').split(' ')]
                 if part.strip().startswith('id'):
                     tag_id = part[(part.index('=') + 1):].replace("'", '').replace('"', '')
             if tag_id != '' or len(tag_classes) > 0:
@@ -233,7 +233,7 @@ def check_tags(path) -> None:
                     if inpType == 'email':
                         native_tag = '<TextInput keyboardType="email-address"'
                     if inpType == 'number':
-                        native_tag = '<TextInput keyboardType="number"'
+                        native_tag = '<TextInput keyboardType="numeric"'
                     if inpType == 'tel':
                         native_tag = '<TextInput keyboardType="phone-pad"'
                     if inpType == 'url':
