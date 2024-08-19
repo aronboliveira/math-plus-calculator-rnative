@@ -19,6 +19,7 @@ export const global_styles = StyleSheet.create({
   bi: {},
   body: {
     backgroundColor: primBl,
+    height: vh,
   },
   button: {
     marginBottom: 0.02 * vh,

@@ -4,6 +4,10 @@ import time
 import json
 import re
 from colorama import Fore, Style
+#km => m -> dividir por 3.6
+
+#percentual -> dividir pelo decimal e multiplicar pelo número de n decimais
+
 
 def walk_dir(dirp) -> None:
   file_acc = 0

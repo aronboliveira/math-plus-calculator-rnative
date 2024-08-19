@@ -66,25 +66,7 @@ export default function AccordionList(props: AccordionListProps): JSX.Element {
           </View>
         )}
         keyExtractor={(_, i) => `__item_${i}`}
-      >
-        {props.n_titles.map(title => (
-          <View style={accordion_list_styles._accordionNav_nany}>
-            <TouchableOpacity
-              style={[global_styles.button, accordion_list_styles._accordionNav_nany]}
-              onPress={ev => routeToOprtGrp(ev.currentTarget as TouchableOpacity)}
-            >
-              <Text
-                style={[
-                  accordion_list_styles._accordionNav_nany,
-                  accordion_list_styles._accordioNav_n_accordionButton,
-                ]}
-              >
-                {title}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </FlatList>
+      ></FlatList>
     </View>
   );
 }

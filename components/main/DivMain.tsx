@@ -5,6 +5,8 @@ import DivEntry from "./DivEntry";
 import ResultsGrid from "./ResultsGrid";
 import replaced_styles from "../../assets/styles/replaced_styles";
 import { rem } from "../../lib/constants";
+import { Provider } from "react-redux";
+import operationsStore from "../../redux/operationsStore";
 export const div_main_styles = {
   hr: {
     marginTop: 2 * rem,
@@ -16,10 +18,11 @@ export const div_main_styles = {
 export default function DivMain({ inpList, outpList }: DivMainProps): JSX.Element {
   return (
     <View>
-      <DivEntry inpList={inpList} />
-      <BtnCalc />
-      {/* //TODO contextualizar ao invés de usar prop */}
-      <ResultsGrid outpList={outpList} />
+      <Provider store={operationsStore}>
+        <DivEntry inpList={inpList} />
+        <BtnCalc />
+        <ResultsGrid outpList={outpList} />
+      </Provider>
       <View style={[replaced_styles.hr, div_main_styles.hr]}></View>
     </View>
   );
