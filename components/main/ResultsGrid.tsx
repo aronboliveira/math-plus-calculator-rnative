@@ -5,7 +5,7 @@ export default function ResultsGrid({ outpList }: ResultsProps): JSX.Element {
   return (
     <View>
       {outpList.map((t, i) => (
-        <CalcRes txt={t} key={`outp__${i}`} />
+        <CalcRes txt={t} key={`outp__${i}`} labKey={i.toString()} />
       ))}
     </View>
   );

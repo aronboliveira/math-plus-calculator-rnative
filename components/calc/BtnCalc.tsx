@@ -1,10 +1,12 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, TextInputState } from "react-native";
 import { global_styles } from "../../assets/styles/global_styles";
 import { useSelector } from "react-redux";
 import { OperationsStore } from "../../lib/declarations/providerLocal";
 import { btnPadding, rem } from "../../lib/constants";
 import { useDispatch } from "react-redux";
 import { set } from "../../redux/slices/outpSlice";
+import { looseNum } from "../../lib/declarations/types";
+import { parseFinite } from "../../lib/handlers/handlersMath";
 export const btn_calc_styles = StyleSheet.create({
   button: {
     display: "flex",
@@ -23,25 +25,30 @@ export const btn_calc_styles = StyleSheet.create({
     paddingRight: btnPadding,
     paddingBottom: btnPadding,
     paddingLeft: btnPadding * 1.8,
-    marginTop: 0.75 * rem,
+    marginTop: 1.5 * rem,
     backgroundColor: "#fff3",
     //TRANSITION
     //TRANLATE
   },
 });
+export const extractInpValues = (inputs: TextInputState): looseNum[] =>
+  Object.values(inputs).map(inp => (inp as any).v);
 export default function BtnCalc(): JSX.Element {
   const inputs = useSelector((s: OperationsStore) => s.inpSlice);
   const outputs = useSelector((s: OperationsStore) => s.outpSlice);
   const dispatch = useDispatch();
   const calculate = (): void => {
-    console.log("INPUT VALUE");
-    console.log(inputs?.input?.v);
-    console.log("OUTPUT");
-    console.log(outputs?.output?.v);
-    if (inputs.input.v) {
-      dispatch(set({ k: "output", v: inputs.input.v }));
-      console.log(outputs.output.v);
-    }
+    // console.log("OUTPUTS");
+    // console.log(outputs);
+    // console.log("INPUTS");
+    // console.log(inputs);
+    const outpKeys = Object.keys(outputs);
+    const sum = extractInpValues(inputs).reduce(
+      (sumt: number, v) => (sumt += typeof v === "string" ? parseFinite(v as string) : v),
+      0,
+    );
+    for (let i = 0; i < outpKeys.length; i++)
+      dispatch(set({ k: outpKeys[i], v: `${sum * (i + 1)}` }));
   };
   return (
     <TouchableOpacity

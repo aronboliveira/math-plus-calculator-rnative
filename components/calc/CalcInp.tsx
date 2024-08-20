@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { set, remove } from "../../redux/slices/inpSlice";
 import { CalcInpProps } from "../../lib/declarations/components";
 import { global_styles, primBl, primWh, tertWh } from "../../assets/styles/global_styles";
-import { btnPadding, inpPadding, rem, vw } from "../../lib/constants";
+import { inpPadding, rem, vw } from "../../lib/constants";
 export const calc_inp_styles = StyleSheet.create({
   input: {
     width: 0.8 * vw,
@@ -18,6 +18,9 @@ export const calc_inp_styles = StyleSheet.create({
     paddingRight: inpPadding,
     paddingBottom: inpPadding,
     paddingLeft: inpPadding * 5,
+  },
+  inputLab: {
+    width: 0.8 * vw,
   },
 });
 export default function CalcInp(props: CalcInpProps): JSX.Element {
@@ -33,7 +36,7 @@ export default function CalcInp(props: CalcInpProps): JSX.Element {
     .join(" ")
     .replace(/pearsonss/gi, "pearson's");
   const normLabText = labText.toLowerCase().replaceAll(" ", "_");
-  const [num, setNum] = useState<string>("");
+  const [num, setNum] = useState<string>(props.labKey);
   const inpRef = useRef<TextInput>(null);
   const numDispatch = useDispatch();
   const dispatchNum = (
@@ -50,19 +53,25 @@ export default function CalcInp(props: CalcInpProps): JSX.Element {
       }),
     );
   };
-  // const inps = useSelector(store => store.inpSlice);
   useEffect(() => {
     try {
       if (!inpRef.current) {
         console.error(`No available reference for input.`);
         return;
       }
-      dispatchNum(normLabText, num || "0");
+      dispatchNum(`${normLabText}__${props.labKey}`, num || "0");
       return () => {
         numDispatch(
           remove({
-            k: labText,
-            v: num,
+            k: normLabText,
+            v: num || "0",
+            // ref: inpRef
+          }),
+        );
+        numDispatch(
+          remove({
+            k: `${normLabText}__${props.labKey}`,
+            v: num || "0",
             // ref: inpRef
           }),
         );
@@ -73,7 +82,9 @@ export default function CalcInp(props: CalcInpProps): JSX.Element {
   }, [num]);
   return (
     <View>
-      <Text style={[global_styles.label, global_styles._divInp_nlabel]}>{labText}</Text>
+      <Text style={[global_styles.label, global_styles._divInp_nlabel, calc_inp_styles.inputLab]}>
+        {labText}
+      </Text>
       <TextInput
         keyboardType={props.type === "numeric" ? props.type : "default"}
         style={[global_styles._divInp_n_formControl, global_styles.inpEntry, calc_inp_styles.input]}

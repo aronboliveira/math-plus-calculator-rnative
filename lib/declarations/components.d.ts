@@ -5,10 +5,12 @@ export interface LabeledProps {
   labCls?: string[];
 }
 export interface CalcElProps extends LabeledProps {
+  labKey: string;
   idf?: string;
   clss?: string[];
 }
 export interface CalcInpProps extends CalcElProps {
+  labKey: string;
   ph?: string;
   type?: "numeric" | "default";
 }

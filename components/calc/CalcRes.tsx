@@ -33,7 +33,7 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
     .replace(/pearsonss/gi, "pearson's");
   const normLabText = labText.toLowerCase().replaceAll(" ", "_") || "#NO_LABEL";
   const dispatchOperation = useDispatch();
-  const iniNum = useSelector((s: OperationsStore) => s.inpSlice?.input?.v);
+  const iniNum = useSelector((s: OperationsStore) => s.inpSlice[`number__${props.labKey}`]?.v);
   const num = useSelector((s: OperationsStore) => s.outpSlice[normLabText]?.v || iniNum);
   useEffect(() => {
     try {
@@ -70,7 +70,10 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
   }, [curW]);
   return (
     <View style={{ width: 0.25 * curW }}>
-      <Text ref={outpLabRef} style={[global_styles.label, global_styles._divResult_nlabel]}>
+      <Text
+        ref={outpLabRef}
+        style={[global_styles.label, global_styles._divResult_nlabel, calc_inp_styles.inputLab]}
+      >
         {labText}
       </Text>
       <Text
