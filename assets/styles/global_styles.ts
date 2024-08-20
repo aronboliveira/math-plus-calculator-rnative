@@ -19,7 +19,7 @@ export const global_styles = StyleSheet.create({
   bi: {},
   body: {
     backgroundColor: primBl,
-    height: vh,
+    flex: 1,
   },
   button: {
     marginBottom: 0.02 * vh,
@@ -104,6 +104,9 @@ export const global_styles = StyleSheet.create({
     // height: max-content
     //ANIMATION
   },
+  scrollView: {
+    flex: 1,
+  },
   _centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -120,7 +123,6 @@ export const global_styles = StyleSheet.create({
     width: 0.9 * vw,
   },
   __resultsGrid_nlabel: {
-    overflow: "hidden",
     maxWidth: vw,
     marginBottom: 0,
   },

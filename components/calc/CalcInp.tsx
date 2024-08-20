@@ -33,7 +33,7 @@ export default function CalcInp(props: CalcInpProps): JSX.Element {
         ? fragment.toLowerCase()
         : fragment.charAt(0).toUpperCase() + fragment.slice(1).toLowerCase(),
     )
-    .join(" ")
+    .join("")
     .replace(/pearsonss/gi, "pearson's");
   const normLabText = labText.toLowerCase().replaceAll(" ", "_");
   const [num, setNum] = useState<string>(props.labKey);
@@ -83,7 +83,7 @@ export default function CalcInp(props: CalcInpProps): JSX.Element {
   return (
     <View>
       <Text style={[global_styles.label, global_styles._divInp_nlabel, calc_inp_styles.inputLab]}>
-        {labText}
+        {labText.replaceAll("  ", " ")}
       </Text>
       <TextInput
         keyboardType={props.type === "numeric" ? props.type : "default"}

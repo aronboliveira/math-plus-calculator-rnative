@@ -5,9 +5,7 @@ import { nView } from "./lib/declarations/types";
 import Header from "./components/main/Header";
 import DivMain from "./components/main/DivMain";
 export const app_styles = StyleSheet.create({
-  __indexRoot: {
-    overflow: "scroll",
-  },
+  __indexRoot: {},
 });
 export default function App() {
   const dlgRoot = useRef<nView>(null);

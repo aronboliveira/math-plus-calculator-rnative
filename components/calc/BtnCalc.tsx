@@ -38,15 +38,12 @@ export default function BtnCalc(): JSX.Element {
   const outputs = useSelector((s: OperationsStore) => s.outpSlice);
   const dispatch = useDispatch();
   const calculate = (): void => {
-    // console.log("OUTPUTS");
-    // console.log(outputs);
-    // console.log("INPUTS");
-    // console.log(inputs);
     const outpKeys = Object.keys(outputs);
     const sum = extractInpValues(inputs).reduce(
-      (sumt: number, v) => (sumt += typeof v === "string" ? parseFinite(v as string) : v),
+      (sumt: number, v) => (sumt += typeof v === "string" ? parseFinite(v) : v),
       0,
     );
+    console.log(outpKeys);
     for (let i = 0; i < outpKeys.length; i++)
       dispatch(set({ k: outpKeys[i], v: `${sum * (i + 1)}` }));
   };

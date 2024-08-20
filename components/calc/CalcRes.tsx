@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
   _divResult_n_resultOutput: {
     color: "#fff",
     fontSize: 0.7 * rem,
-    overflow: "scroll",
     verticalAlign: "middle",
   },
 });
@@ -31,7 +30,18 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
     )
     .join(" ")
     .replace(/pearsonss/gi, "pearson's");
-  const normLabText = labText.toLowerCase().replaceAll(" ", "_") || "#NO_LABEL";
+  const normLabText =
+    labText
+      .toLowerCase()
+      .replaceAll(" ", "_")
+      .split(/_+/)
+      .map((kFrag, i) =>
+        i === 0
+          ? kFrag.toLowerCase()
+          : `${kFrag.charAt(0).toUpperCase()}${kFrag.slice(1).toLowerCase()}`,
+      )
+      .join("")
+      .replace(/,/g, "") || "#NO_LABEL";
   const dispatchOperation = useDispatch();
   const iniNum = useSelector((s: OperationsStore) => s.inpSlice[`number__${props.labKey}`]?.v);
   const num = useSelector((s: OperationsStore) => s.outpSlice[normLabText]?.v || iniNum);
@@ -74,7 +84,7 @@ export default function CalcRes(props: CalcElProps): JSX.Element {
         ref={outpLabRef}
         style={[global_styles.label, global_styles._divResult_nlabel, calc_inp_styles.inputLab]}
       >
-        {labText}
+        {labText.replaceAll("  ", " ")}
       </Text>
       <Text
         ref={outpRef}
